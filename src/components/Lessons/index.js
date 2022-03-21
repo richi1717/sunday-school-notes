@@ -54,12 +54,11 @@ export default function Lessons ({ lessons }) {
           <TextField
             value={lesson}
             onChange={(e) => {
-              console.log(e.target.value)
               setLesson(e.target.value)
             }}
           />
           <Button type="submit" variant="contained" sx={{ textTransform: 'none' }}>
-            Save it!
+            Add
           </Button>
         </Stack>
       </Box>
