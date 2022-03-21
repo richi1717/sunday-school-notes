@@ -17,12 +17,17 @@ export default function Lessons ({ lessons }) {
         lesson,
       }),
     })
+    try {
+      const temp = await (await fetch(process.env.dbItems)).json()
+      const keys = Object.keys(temp)
+      alert(`${keys[keys.length - 1]}: ${temp[keys[keys.length - 1]]}`)
 
-    const temp = await (await fetch(process.env.dbItems)).json()
-
-    setCurrentLessons(temp)
-    setUpdate(false)
-    setLesson('')
+      setCurrentLessons(temp)
+      setUpdate(false)
+      setLesson('')
+    } catch (err) {
+      alert(err)
+    }
   }
 
   useEffect(() => {
