@@ -17,7 +17,9 @@ export default function Lessons ({ lessons }) {
         lesson,
       }),
     })
+
     const temp = await (await fetch(process.env.dbItems)).json()
+
     setCurrentLessons(temp)
     setUpdate(false)
     setLesson('')
@@ -47,7 +49,7 @@ export default function Lessons ({ lessons }) {
         component="form"
         onSubmit={(e) => {
           e.preventDefault()
-          setUpdate(true)
+          lesson && updateLessons()
         }}
       >
         <Stack spacing={2}>
@@ -57,7 +59,11 @@ export default function Lessons ({ lessons }) {
               setLesson(e.target.value)
             }}
           />
-          <Button type="submit" variant="contained" sx={{ textTransform: 'none' }}>
+          <Button
+            type="submit"
+            variant="contained"
+            sx={{ textTransform: 'none', cursor: 'pointer' }}
+          >
             Add
           </Button>
         </Stack>
