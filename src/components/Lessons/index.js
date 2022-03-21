@@ -30,7 +30,7 @@ export default function Lessons ({ lessons }) {
   }, [update])
 
   return (
-    <Stack spacing={2}>
+    <Stack spacing={2} padding={5}>
       {Object.entries(currentLessons).map((item, idx) => {
         const date = new Date(Number(item[0]))?.toLocaleDateString()
 
