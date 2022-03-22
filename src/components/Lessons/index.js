@@ -7,11 +7,8 @@ import { useState } from 'react'
 export default function Lessons ({ lessons }) {
   const [lesson, setLesson] = useState('')
   const [currentLessons, setCurrentLessons] = useState(lessons)
-  const [test, setTest] = useState('')
-  const [it, setIt] = useState(1)
 
   const updateLessons = async () => {
-    setTest('before')
     try {
       await fetch(`${process.env.appUrl}/api/updateLessons`, {
         method: 'POST',
@@ -20,20 +17,12 @@ export default function Lessons ({ lessons }) {
           lesson,
         }),
       })
-    } catch (err) {
-      setTest('err')
-    }
-    setTest('mobile?')
-    try {
-      setTest(`trying before ${process.env.dbItems}`)
       const temp = await (await fetch(process.env.dbItems)).json()
-      const keys = Object.keys(temp)
-      setTest(`${keys[keys.length - 1]}: ${temp[keys[keys.length - 1]]}`)
 
       setCurrentLessons(temp)
       setLesson('')
     } catch (err) {
-      setTest(err)
+      console.error(err)
     }
   }
 
@@ -65,7 +54,6 @@ export default function Lessons ({ lessons }) {
               setLesson(e.target.value)
             }}
           />
-          {test}
           <Button
             type="submit"
             variant="contained"
@@ -75,9 +63,6 @@ export default function Lessons ({ lessons }) {
           </Button>
         </Stack>
       </Box>
-      <Button type="button" onClick={() => setIt(it + 1)}>
-        {it}
-      </Button>
     </Stack>
   )
 }
