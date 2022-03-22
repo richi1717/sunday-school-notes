@@ -8,6 +8,7 @@ export default function Lessons ({ lessons }) {
   const [lesson, setLesson] = useState('')
   const [currentLessons, setCurrentLessons] = useState(lessons)
   const [test, setTest] = useState('')
+  const [it, setIt] = useState(1)
 
   const updateLessons = async () => {
     setTest('before')
@@ -74,6 +75,9 @@ export default function Lessons ({ lessons }) {
           </Button>
         </Stack>
       </Box>
+      <Button type="button" onClick={() => setIt(it + 1)}>
+        {it}
+      </Button>
     </Stack>
   )
 }
