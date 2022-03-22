@@ -12,13 +12,11 @@ if (!firebase.apps.length) {
 }
 const database = firebase.app().database()
 
-const updateLessons = (req, res) => {
+const deleteLessons = (req, res) => {
   const body = JSON.parse(req.body)
-  database.ref('studies/').update({
-    [body.id]: body.lesson,
-  })
+  database.ref(`studies/${body.id}`).remove()
   res.statusCode = 200
-  res.json({ message: 'Update complete' })
+  res.json({ message: 'Delete complete' })
 }
 
-export default updateLessons
+export default deleteLessons
