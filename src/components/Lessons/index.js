@@ -18,6 +18,7 @@ export default function Lessons ({ lessons }) {
       }),
     })
     try {
+      alert(`trying before ${process.env.dbItems}`)
       const temp = await (await fetch(process.env.dbItems)).json()
       const keys = Object.keys(temp)
       alert(`${keys[keys.length - 1]}: ${temp[keys[keys.length - 1]]}`)
