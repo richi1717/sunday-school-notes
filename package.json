@@ -6,6 +6,7 @@
     "build": "next build",
     "dev": "next dev",
     "lint": "eslint . --ext .js",
+    "lint:fix": "eslint . --fix --ext .js",
     "start": "next start"
   },
   "dependencies": {
