@@ -89,6 +89,7 @@ export default function Lessons ({ lessons }) {
               onChange={(e) => {
                 setLesson(e.target.value)
               }}
+              placeholder="https://www.markdownguide.org/cheat-sheet/ to learn how to use markdown"
             />
             <Button
               type="submit"
