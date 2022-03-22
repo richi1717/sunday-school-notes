@@ -17,6 +17,7 @@ export default function Lessons ({ lessons }) {
         lesson,
       }),
     })
+    setTest('mobile?')
     try {
       setTest(`trying before ${process.env.dbItems}`)
       const temp = await (await fetch(process.env.dbItems)).json()
