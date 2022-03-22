@@ -7,6 +7,7 @@ import { useState } from 'react'
 export default function Lessons ({ lessons }) {
   const [lesson, setLesson] = useState('')
   const [currentLessons, setCurrentLessons] = useState(lessons)
+  const [test, setTest] = useState('')
 
   const updateLessons = async () => {
     await fetch(`${process.env.appUrl}/api/updateLessons`, {
@@ -17,15 +18,15 @@ export default function Lessons ({ lessons }) {
       }),
     })
     try {
-      alert(`trying before ${process.env.dbItems}`)
+      setTest(`trying before ${process.env.dbItems}`)
       const temp = await (await fetch(process.env.dbItems)).json()
       const keys = Object.keys(temp)
-      alert(`${keys[keys.length - 1]}: ${temp[keys[keys.length - 1]]}`)
+      setTest(`${keys[keys.length - 1]}: ${temp[keys[keys.length - 1]]}`)
 
       setCurrentLessons(temp)
       setLesson('')
     } catch (err) {
-      alert(err)
+      setTest(err)
     }
   }
 
@@ -57,6 +58,7 @@ export default function Lessons ({ lessons }) {
               setLesson(e.target.value)
             }}
           />
+          {test}
           <Button
             type="submit"
             variant="contained"
