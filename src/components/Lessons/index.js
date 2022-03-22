@@ -1,12 +1,11 @@
 import fetch from 'node-fetch'
 import PropTypes from 'prop-types'
 import { Box, Button, Stack, TextField, Typography } from '@mui/material'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 // const battleScenes = ['boss', 'beach', 'desert', 'forest', 'grass'] // use to redirect to different tests
 
 export default function Lessons ({ lessons }) {
   const [lesson, setLesson] = useState('')
-  const [update, setUpdate] = useState(false)
   const [currentLessons, setCurrentLessons] = useState(lessons)
 
   const updateLessons = async () => {
@@ -24,18 +23,11 @@ export default function Lessons ({ lessons }) {
       alert(`${keys[keys.length - 1]}: ${temp[keys[keys.length - 1]]}`)
 
       setCurrentLessons(temp)
-      setUpdate(false)
       setLesson('')
     } catch (err) {
       alert(err)
     }
   }
-
-  useEffect(() => {
-    if (update && lesson) {
-      updateLessons()
-    }
-  }, [update])
 
   return (
     <Stack spacing={2} padding={5}>
