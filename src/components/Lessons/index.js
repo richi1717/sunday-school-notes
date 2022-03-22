@@ -11,13 +11,17 @@ export default function Lessons ({ lessons }) {
 
   const updateLessons = async () => {
     setTest('before')
-    await fetch(`${process.env.appUrl}/api/updateLessons`, {
-      method: 'POST',
-      body: JSON.stringify({
-        id: Date.now(),
-        lesson,
-      }),
-    })
+    try {
+      await fetch(`${process.env.appUrl}/api/updateLessons`, {
+        method: 'POST',
+        body: JSON.stringify({
+          id: Date.now(),
+          lesson,
+        }),
+      })
+    } catch (err) {
+      setTest('err')
+    }
     setTest('mobile?')
     try {
       setTest(`trying before ${process.env.dbItems}`)
