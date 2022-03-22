@@ -2,7 +2,8 @@ import fetch from 'node-fetch'
 import PropTypes from 'prop-types'
 import { Box, Button, Stack, TextField, Typography } from '@mui/material'
 import { useState } from 'react'
-import MuiMarkdown from 'mui-markdown'
+import MuiMarkdown from 'markdown-to-jsx'
+
 // const battleScenes = ['boss', 'beach', 'desert', 'forest', 'grass'] // use to redirect to different tests
 
 export default function Lessons ({ lessons }) {
