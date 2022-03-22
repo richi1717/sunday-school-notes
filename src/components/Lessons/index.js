@@ -10,6 +10,7 @@ export default function Lessons ({ lessons }) {
   const [test, setTest] = useState('')
 
   const updateLessons = async () => {
+    setTest('before')
     await fetch(`${process.env.appUrl}/api/updateLessons`, {
       method: 'POST',
       body: JSON.stringify({
@@ -74,5 +75,5 @@ export default function Lessons ({ lessons }) {
 }
 
 Lessons.propTypes = {
-  lessons: PropTypes.arrayOf(PropTypes.object).isRequired,
+  lessons: PropTypes.object.isRequired,
 }

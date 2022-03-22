@@ -4,7 +4,7 @@ import { Stack } from '@mui/material'
 import Header from '../components/Header'
 import Lessons from '../components/Lessons'
 
-export default function Location ({ lessons }) {
+export default function Home ({ lessons }) {
   return (
     <Stack>
       <Header />
@@ -13,8 +13,8 @@ export default function Location ({ lessons }) {
   )
 }
 
-Location.propTypes = {
-  lessons: PropTypes.arrayOf(PropTypes.object).isRequired,
+Home.propTypes = {
+  lessons: PropTypes.object.isRequired,
 }
 
 export async function getServerSideProps ({ params }) {
