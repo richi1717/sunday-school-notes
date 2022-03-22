@@ -8,7 +8,8 @@ import MuiMarkdown from 'mui-markdown'
 export default function Lessons ({ lessons }) {
   const [lesson, setLesson] = useState('')
   const [currentLessons, setCurrentLessons] = useState(lessons)
-  const [isAdmin, setIsAdmin] = useState(true)
+  // const [isAdmin, setIsAdmin] = useState(true)
+  const isAdmin = true
 
   const updateLessons = async () => {
     try {
