@@ -1,4 +1,5 @@
-const firebase = require('firebase')
+import { initializeApp } from 'firebase/app'
+import { getDatabase, ref, update } from 'firebase/database'
 
 const config = {
   appName: 'Sunday Class Notes',
@@ -7,16 +8,16 @@ const config = {
   storageBucket: process.env.storageBucket,
 }
 
-if (!firebase.apps.length) {
-  firebase.initializeApp(config)
-}
-const database = firebase.app().database()
+const app = initializeApp(config)
+const db = getDatabase(app)
 
 const updateLessons = (req, res) => {
   const body = JSON.parse(req.body)
-  database.ref('studies/').update({
+
+  update(ref(db, 'studies/'), {
     [body.id]: body.lesson,
   })
+
   res.statusCode = 200
   res.json({ message: 'Update complete' })
 }
