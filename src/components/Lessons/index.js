@@ -1,13 +1,14 @@
 import fetch from 'node-fetch'
 import PropTypes from 'prop-types'
 import { Box, Button, IconButton, Stack, TextField, Typography } from '@mui/material'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import MuiMarkdown from 'markdown-to-jsx'
 import EditIcon from '@mui/icons-material/Edit'
 import CloseIcon from '@mui/icons-material/Close'
 import { filterByDate } from './helpers'
 
 export default function Lessons ({ lessons }) {
+  const inputEl = useRef(null)
   const [lesson, setLesson] = useState('')
   const [updateId, setUpdateId] = useState('')
   const [currentLessons, setCurrentLessons] = useState(lessons)
@@ -51,7 +52,7 @@ export default function Lessons ({ lessons }) {
   }
 
   return (
-    <Stack spacing={2} padding={5}>
+    <Stack spacing={2} padding={{ mobile: 3, tablet: 5 }}>
       {filterByDate(currentLessons).map((item) => {
         const { date, notes } = item
 
@@ -86,6 +87,7 @@ export default function Lessons ({ lessons }) {
                         onClick={() => {
                           setLesson(note[1])
                           setUpdateId(note[0])
+                          inputEl.current.focus()
                         }}
                       >
                         <EditIcon sx={{ height: 12 }} />
@@ -95,7 +97,7 @@ export default function Lessons ({ lessons }) {
                   <Stack direction={{ mobile: 'column', tablet: 'row' }} spacing={2}>
                     <Typography
                       component={MuiMarkdown}
-                      sx={{ wordBreak: 'break-all' }}
+                      sx={{ 'wordBreak': 'break-all', 'p:first-child': { mt: 0 } }}
                       onClick={() => {
                         setLesson(note[1])
                         setUpdateId(note[0])
@@ -120,6 +122,7 @@ export default function Lessons ({ lessons }) {
         >
           <Stack spacing={2}>
             <TextField
+              inputRef={inputEl}
               value={lesson}
               multiline
               minRows={4}
@@ -128,13 +131,28 @@ export default function Lessons ({ lessons }) {
               }}
               placeholder="https://www.markdownguide.org/cheat-sheet/ to learn how to use markdown"
             />
-            <Button
-              type="submit"
-              variant="contained"
-              sx={{ textTransform: 'none', cursor: 'pointer' }}
-            >
-              Add
-            </Button>
+            {lesson && (
+              <Stack spacing={2} direction="row" justifyContent="flex-end">
+                <Button
+                  type="button"
+                  variant="outlined"
+                  sx={{ textTransform: 'none', cursor: 'pointer' }}
+                  onClick={() => {
+                    setLesson('')
+                    updateId && setUpdateId('')
+                  }}
+                >
+                  {updateId ? 'Cancel' : 'Clear'}
+                </Button>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  sx={{ textTransform: 'none', cursor: 'pointer' }}
+                >
+                  {updateId ? 'Update' : 'Add'}
+                </Button>
+              </Stack>
+            )}
           </Stack>
         </Box>
       )}
