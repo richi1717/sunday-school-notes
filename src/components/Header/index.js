@@ -7,10 +7,12 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  IconButton,
   Stack,
   TextField,
   Typography,
 } from '@mui/material'
+import CloseIcon from '@mui/icons-material/Close'
 import { useTheme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import PropTypes from 'prop-types'
@@ -56,10 +58,19 @@ export default function Header ({ isAdmin, setIsAdmin }) {
   }
 
   return (
-    <Stack direction="row" justifyContent="space-between" alignItems="center" p={2}>
+    <Stack
+      direction={{ mobile: 'column-reverse', tablet: 'row' }}
+      justifyContent="space-between"
+      alignItems="center"
+      p={2}
+    >
       <Typography
         variant="h1"
-        sx={{ textAlign: 'center', p: 4, fontSize: { mobile: 40, tablet: 64 } }}
+        sx={{
+          textAlign: 'center',
+          p: { tablet: 4 },
+          fontSize: { mobile: 40, tablet: 64 },
+        }}
       >
         Sunday School Notes
       </Typography>
@@ -69,6 +80,17 @@ export default function Header ({ isAdmin, setIsAdmin }) {
       <Dialog open={open} onClose={() => setOpen(false)} fullScreen={matches}>
         <DialogTitle sx={{ textAlign: 'center', fontSize: { mobile: 30, tablet: 44 } }}>
           Login to edit
+          <IconButton
+            aria-label="close"
+            onClick={() => setOpen(false)}
+            sx={{
+              position: 'absolute',
+              right: 8,
+              top: 8,
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
         </DialogTitle>
         {error && (
           <Alert severity="error" sx={{ mx: 3 }}>

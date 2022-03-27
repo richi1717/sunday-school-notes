@@ -1,6 +1,17 @@
 import fetch from 'node-fetch'
 import PropTypes from 'prop-types'
-import { Box, Button, IconButton, Stack, TextField, Typography } from '@mui/material'
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Box,
+  Button,
+  IconButton,
+  Stack,
+  TextField,
+  Typography,
+} from '@mui/material'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { useRef, useState } from 'react'
 import MuiMarkdown from 'markdown-to-jsx'
 import EditIcon from '@mui/icons-material/Edit'
@@ -12,6 +23,14 @@ export default function Lessons ({ lessons, isAdmin }) {
   const [lesson, setLesson] = useState('')
   const [updateId, setUpdateId] = useState('')
   const [currentLessons, setCurrentLessons] = useState(lessons)
+
+  const lastIndex = filterByDate(currentLessons)?.length - 1
+  const expandedDefault = filterByDate(currentLessons)?.[lastIndex]?.date
+  const [expanded, setExpanded] = useState(expandedDefault)
+
+  const handleChange = (panel) => (e, isExpanded) => {
+    setExpanded(isExpanded ? panel : false)
+  }
 
   const updateLessons = async () => {
     try {
@@ -51,63 +70,63 @@ export default function Lessons ({ lessons, isAdmin }) {
 
   return (
     <Stack spacing={2} padding={{ mobile: 3, tablet: 5 }}>
-      {filterByDate(currentLessons).map((item) => {
+      {filterByDate(currentLessons).map((item, index) => {
         const { date, notes } = item
 
         return (
-          <Stack key={date} spacing={2}>
-            <Typography sx={{ fontSize: { mobile: 16, tablet: 18 }, fontWeight: 700 }}>
-              {date}
-            </Typography>
+          <Accordion key={date} expanded={expanded === date} onChange={handleChange(date)}>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />}>{date}</AccordionSummary>
             {notes.map((note, idx) => (
-              <Stack direction="row" key={idx} spacing={2}>
-                <Stack direction={{ mobile: 'row', tablet: 'row' }} spacing={2}>
-                  {isAdmin && (
-                    <Stack direction="row" sx={{ alignSelf: 'flex-start', pt: 0.5 }}>
-                      <IconButton
-                        type="button"
-                        sx={{
-                          textTransform: 'none',
-                          cursor: 'pointer',
-                          p: 0,
-                        }}
-                        onClick={() => deleteLessons(note[0])}
-                      >
-                        <CloseIcon sx={{ height: 16 }} />
-                      </IconButton>
-                      <IconButton
-                        type="button"
-                        sx={{
-                          textTransform: 'none',
-                          cursor: 'pointer',
-                          p: 0,
-                        }}
+              <AccordionDetails key={idx}>
+                <Stack direction="row" spacing={2}>
+                  <Stack direction={{ mobile: 'row', tablet: 'row' }} spacing={2}>
+                    {isAdmin && (
+                      <Stack direction="row" sx={{ alignSelf: 'flex-start', pt: 0.5 }}>
+                        <IconButton
+                          type="button"
+                          sx={{
+                            textTransform: 'none',
+                            cursor: 'pointer',
+                            p: 0,
+                          }}
+                          onClick={() => deleteLessons(note[0])}
+                        >
+                          <CloseIcon sx={{ height: 16 }} />
+                        </IconButton>
+                        <IconButton
+                          type="button"
+                          sx={{
+                            textTransform: 'none',
+                            cursor: 'pointer',
+                            p: 0,
+                          }}
+                          onClick={() => {
+                            setLesson(note[1])
+                            setUpdateId(note[0])
+                            inputEl.current.focus()
+                          }}
+                        >
+                          <EditIcon sx={{ height: 12 }} />
+                        </IconButton>
+                      </Stack>
+                    )}
+                    <Stack direction={{ mobile: 'column', tablet: 'row' }} spacing={2}>
+                      <Typography
+                        component={MuiMarkdown}
+                        sx={{ 'wordBreak': 'break-all', 'p:first-child': { mt: 0 } }}
                         onClick={() => {
                           setLesson(note[1])
                           setUpdateId(note[0])
-                          inputEl.current.focus()
                         }}
                       >
-                        <EditIcon sx={{ height: 12 }} />
-                      </IconButton>
+                        {note[1]}
+                      </Typography>
                     </Stack>
-                  )}
-                  <Stack direction={{ mobile: 'column', tablet: 'row' }} spacing={2}>
-                    <Typography
-                      component={MuiMarkdown}
-                      sx={{ 'wordBreak': 'break-all', 'p:first-child': { mt: 0 } }}
-                      onClick={() => {
-                        setLesson(note[1])
-                        setUpdateId(note[0])
-                      }}
-                    >
-                      {note[1]}
-                    </Typography>
                   </Stack>
                 </Stack>
-              </Stack>
+              </AccordionDetails>
             ))}
-          </Stack>
+          </Accordion>
         )
       })}
       {isAdmin && (
