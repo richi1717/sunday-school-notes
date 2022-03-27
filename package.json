@@ -42,5 +42,9 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-prettierx": "^0.18.0",
     "eslint-plugin-react": "^7.20.0"
-  }
+  },
+  "cacheDirectories": [
+    "node_modules/",
+    ".next/cache/"
+  ]
 }
