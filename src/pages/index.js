@@ -13,7 +13,7 @@ export default function Home ({ lessons }) {
       const cookieArr = document.cookie.split(';')
       const found = cookieArr.find((cookie) => cookie.includes(cookieName))
 
-      return found.split('=')[1]
+      return found?.split('=')[1]
     }
 
     const cookie = getCookie('loggedIn')
