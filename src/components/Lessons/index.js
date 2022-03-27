@@ -1,19 +1,17 @@
 import fetch from 'node-fetch'
 import PropTypes from 'prop-types'
 import { Box, Button, IconButton, Stack, TextField, Typography } from '@mui/material'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import MuiMarkdown from 'markdown-to-jsx'
 import EditIcon from '@mui/icons-material/Edit'
 import CloseIcon from '@mui/icons-material/Close'
 import { filterByDate } from './helpers'
 
-export default function Lessons ({ lessons }) {
+export default function Lessons ({ lessons, isAdmin }) {
   const inputEl = useRef(null)
   const [lesson, setLesson] = useState('')
   const [updateId, setUpdateId] = useState('')
   const [currentLessons, setCurrentLessons] = useState(lessons)
-  // const [isAdmin, setIsAdmin] = useState(true)
-  const isAdmin = true
 
   const updateLessons = async () => {
     try {
@@ -162,4 +160,5 @@ export default function Lessons ({ lessons }) {
 
 Lessons.propTypes = {
   lessons: PropTypes.object.isRequired,
+  isAdmin: PropTypes.bool.isRequired,
 }
