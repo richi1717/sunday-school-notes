@@ -1,7 +1,7 @@
 import fetch from 'node-fetch'
 import PropTypes from 'prop-types'
 import { Box, Button, IconButton, Stack, TextField, Typography } from '@mui/material'
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import MuiMarkdown from 'markdown-to-jsx'
 import EditIcon from '@mui/icons-material/Edit'
 import CloseIcon from '@mui/icons-material/Close'
