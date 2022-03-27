@@ -1,5 +1,6 @@
 import { initializeApp } from 'firebase/app'
 import { child, get, getDatabase, ref } from 'firebase/database'
+import NextCors from 'nextjs-cors'
 
 const config = {
   appName: 'Sunday Class Notes',
@@ -11,8 +12,13 @@ const config = {
 const app = initializeApp(config)
 const db = ref(getDatabase(app))
 
-const login = (req, res) => {
+const login = async (req, res) => {
   const body = JSON.parse(req.body)
+  await NextCors(req, res, {
+    methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+    origin: '*',
+    optionsSuccessStatus: 200,
+  })
 
   get(child(db, `login/${body.name}`))
     .then((snapshot) => {
