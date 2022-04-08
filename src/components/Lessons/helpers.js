@@ -3,11 +3,11 @@ export const filterByDate = (currentLessons) => {
   const obj = {}
 
   arr.forEach((item) => {
-    const date = new Date(Number(item[0]))?.toLocaleDateString()
-    if (!obj[date]) {
-      obj[date] = []
+    const chapter = item[0]?.split('-')?.[1]
+    if (!obj[chapter]) {
+      obj[chapter] = []
     }
-    obj[date].push(item)
+    obj[chapter].push(item)
   })
 
   return Object.keys(obj).map((item) => ({ date: item, notes: obj[item] }))

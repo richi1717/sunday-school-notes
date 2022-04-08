@@ -4,11 +4,8 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  Box,
-  Button,
   IconButton,
   Stack,
-  TextField,
   Typography,
 } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
@@ -17,6 +14,7 @@ import MuiMarkdown from 'markdown-to-jsx'
 import EditIcon from '@mui/icons-material/Edit'
 import CloseIcon from '@mui/icons-material/Close'
 import { filterByDate } from './helpers'
+import AdminText from './AdminText'
 
 export default function Lessons ({ lessons, isAdmin }) {
   const inputEl = useRef(null)
@@ -30,25 +28,6 @@ export default function Lessons ({ lessons, isAdmin }) {
 
   const handleChange = (panel) => (e, isExpanded) => {
     setExpanded(isExpanded ? panel : false)
-  }
-
-  const updateLessons = async () => {
-    try {
-      await fetch(`${process.env.appUrl}/api/updateLessons`, {
-        method: 'POST',
-        body: JSON.stringify({
-          id: updateId || Date.now(),
-          lesson,
-        }),
-      })
-      const temp = await (await fetch(process.env.dbItems)).json()
-
-      setCurrentLessons(temp)
-      setLesson('')
-    } catch (err) {
-      console.error(err)
-    }
-    setUpdateId('')
   }
 
   const deleteLessons = async (id) => {
@@ -130,48 +109,14 @@ export default function Lessons ({ lessons, isAdmin }) {
         )
       })}
       {isAdmin && (
-        <Box
-          component="form"
-          onSubmit={(e) => {
-            e.preventDefault()
-            lesson && updateLessons()
-          }}
-        >
-          <Stack spacing={2}>
-            <TextField
-              inputRef={inputEl}
-              value={lesson}
-              multiline
-              minRows={4}
-              onChange={(e) => {
-                setLesson(e.target.value)
-              }}
-              placeholder="https://www.markdownguide.org/cheat-sheet/ to learn how to use markdown"
-            />
-            {lesson && (
-              <Stack spacing={2} direction="row" justifyContent="flex-end">
-                <Button
-                  type="button"
-                  variant="outlined"
-                  sx={{ textTransform: 'none', cursor: 'pointer' }}
-                  onClick={() => {
-                    setLesson('')
-                    updateId && setUpdateId('')
-                  }}
-                >
-                  {updateId ? 'Cancel' : 'Clear'}
-                </Button>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  sx={{ textTransform: 'none', cursor: 'pointer' }}
-                >
-                  {updateId ? 'Update' : 'Add'}
-                </Button>
-              </Stack>
-            )}
-          </Stack>
-        </Box>
+        <AdminText
+          setCurrentLessons={setCurrentLessons}
+          lesson={lesson}
+          setLesson={setLesson}
+          updateId={updateId}
+          setUpdateId={setUpdateId}
+          ref={inputEl}
+        />
       )}
     </Stack>
   )
