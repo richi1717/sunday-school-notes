@@ -92,7 +92,7 @@ export default function Lessons ({ lessons, isAdmin }) {
                     <Stack direction={{ mobile: 'column', tablet: 'row' }} spacing={2}>
                       <Typography
                         component={MuiMarkdown}
-                        sx={{ 'wordBreak': 'break-all', 'p:first-child': { mt: 0 } }}
+                        sx={{ 'wordBreak': 'break-word', 'p:first-child': { mt: 0 } }}
                         onClick={() => {
                           setLesson(note[1])
                           setUpdateId(note[0])
