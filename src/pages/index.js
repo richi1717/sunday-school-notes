@@ -34,6 +34,7 @@ Home.propTypes = {
 }
 
 export async function getServerSideProps ({ params }) {
+  console.log(process.env.dbItems)
   const lessons = await (await fetch(process.env.dbItems)).json()
 
   return {
