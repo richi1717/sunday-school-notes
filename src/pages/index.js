@@ -35,7 +35,7 @@ Home.propTypes = {
   lessons: PropTypes.object.isRequired,
 }
 
-export async function getServerSideProps ({ params }) {
+export function getServerSideProps ({ params }) {
   console.log(process.env.dbItems)
   // const lessons = await (await fetch(process.env.dbItems)).json()
 
