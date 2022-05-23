@@ -17,14 +17,15 @@ export default function Home ({ lessons }) {
     }
 
     const cookie = getCookie('loggedIn')
+    console.log({ cookie })
 
     setIsAdmin(cookie === 'true')
   }, [isAdmin])
-
+  console.log('got it!')
   return (
     <Stack>
       <Header isAdmin={isAdmin} setIsAdmin={setIsAdmin} />
-      <Lessons lessons={lessons} isAdmin={isAdmin} />
+      {/* <Lessons lessons={lessons} isAdmin={isAdmin} /> */}
     </Stack>
   )
 }
