@@ -32,7 +32,7 @@ export default function Lessons ({ lessons, isAdmin }) {
 
   const deleteLessons = async (id) => {
     try {
-      await fetch(`${process.env.appUrl}/api/deleteLessons`, {
+      await fetch('/api/deleteLessons', {
         method: 'POST',
         body: JSON.stringify({
           id,

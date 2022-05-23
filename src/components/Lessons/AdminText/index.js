@@ -14,7 +14,7 @@ const AdminText = React.forwardRef(
     const updateLessons = async () => {
       try {
         const updateIdMatches = updateId?.split('-')?.[1] === chapter
-        await fetch(`${process.env.appUrl}/api/updateLessons`, {
+        await fetch('/api/updateLessons', {
           method: 'POST',
           body: JSON.stringify({
             id: (updateIdMatches && updateId) || `${Date.now()}-${chapter}`,

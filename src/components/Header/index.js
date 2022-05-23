@@ -27,7 +27,7 @@ export default function Header ({ isAdmin, setIsAdmin }) {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch(`${process.env.appUrl}/api/login`, {
+      const response = await fetch('/api/login', {
         method: 'POST',
         body: JSON.stringify({
           name,
