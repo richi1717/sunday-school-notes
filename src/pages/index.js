@@ -1,4 +1,4 @@
-// import fetch from 'node-fetch'
+import fetch from 'node-fetch'
 import { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { Stack } from '@mui/material'
@@ -7,7 +7,6 @@ import Lessons from '../components/Lessons'
 
 export default function Home ({ lessons }) {
   const [isAdmin, setIsAdmin] = useState(false)
-  console.log({ lessons })
 
   useEffect(() => {
     const getCookie = (cookieName) => {
@@ -18,11 +17,10 @@ export default function Home ({ lessons }) {
     }
 
     const cookie = getCookie('loggedIn')
-    console.log({ cookie })
 
     setIsAdmin(cookie === 'true')
   }, [isAdmin])
-  console.log('got it!')
+
   return (
     <Stack>
       <Header isAdmin={isAdmin} setIsAdmin={setIsAdmin} />
@@ -35,13 +33,12 @@ Home.propTypes = {
   lessons: PropTypes.object.isRequired,
 }
 
-export function getServerSideProps ({ params }) {
-  console.log(process.env.dbItems)
-  // const lessons = await (await fetch(process.env.dbItems)).json()
+export async function getServerSideProps ({ params }) {
+  const lessons = await (await fetch(process.env.dbItems)).json()
 
   return {
     props: {
-      lessons: process.env.dbItems,
+      lessons,
     },
   }
 }
