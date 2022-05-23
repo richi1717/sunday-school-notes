@@ -7,6 +7,7 @@ import Lessons from '../components/Lessons'
 
 export default function Home ({ lessons }) {
   const [isAdmin, setIsAdmin] = useState(false)
+  console.log({ lessons })
 
   useEffect(() => {
     const getCookie = (cookieName) => {
@@ -25,7 +26,7 @@ export default function Home ({ lessons }) {
   return (
     <Stack>
       <Header isAdmin={isAdmin} setIsAdmin={setIsAdmin} />
-      {/* <Lessons lessons={lessons} isAdmin={isAdmin} /> */}
+      <Lessons lessons={lessons} isAdmin={isAdmin} />
     </Stack>
   )
 }
@@ -36,11 +37,11 @@ Home.propTypes = {
 
 export async function getServerSideProps ({ params }) {
   console.log(process.env.dbItems)
-  const lessons = await (await fetch(process.env.dbItems)).json()
+  // const lessons = await (await fetch(process.env.dbItems)).json()
 
   return {
     props: {
-      lessons,
+      lessons: process.env.dbItems,
     },
   }
 }
