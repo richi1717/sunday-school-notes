@@ -53,7 +53,12 @@ export default function Lessons ({ lessons, isAdmin }) {
         const { date, notes } = item
 
         return (
-          <Accordion key={date} expanded={expanded === date} onChange={handleChange(date)}>
+          <Accordion
+            key={date}
+            expanded={expanded === date}
+            onChange={handleChange(date)}
+            TransitionProps={{ unmountOnExit: true }}
+          >
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>{date}</AccordionSummary>
             {notes.map((note, idx) => (
               <AccordionDetails key={idx}>

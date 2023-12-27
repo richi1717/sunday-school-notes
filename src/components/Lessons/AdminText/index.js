@@ -112,7 +112,7 @@ const AdminText = React.forwardRef(
         </Stack>
       </Box>
     )
-  }
+  },
 )
 
 AdminText.displayName = 'AdminText'
